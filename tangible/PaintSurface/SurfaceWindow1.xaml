@@ -9,8 +9,8 @@
         <Image Source="/Resources/backgroud.jpg"  Width="1920" Height="1080"/>
         
 <!--Vue présentation roue-->
-        <Grid  x:Name="myGrid" Visibility="Visible">
-            <!--Visible Hidden -->
+        <!--Visible Hidden -->
+        <Grid  x:Name="myGrid" Visibility="Hidden">
             <Image Source="/Resources/rond.png"  Width="360" Height="360">
             <Image.RenderTransform>
                 <RotateTransform CenterX="180" CenterY="180" />
@@ -78,129 +78,17 @@
             </Image.Triggers>
         </Image>
 
-        <s:TagVisualizer  Height="650" Width="1920" Name="tagItem"   VisualizationAdded="itemPutOnTable">
-            <s:TagVisualizer.Definitions>
-                <s:TagVisualizationDefinition Value="0x1" 
+            <s:TagVisualizer  Height="650" Width="1920" Name="tagItem"   VisualizationAdded="itemPutOnTable">
+                <s:TagVisualizer.Definitions>
+                    <s:TagVisualizationDefinition Value="0x1" 
                                              OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0"
                                                   UsesTagOrientation="True"
                                               />
-            </s:TagVisualizer.Definitions>
-        </s:TagVisualizer>
-
+                </s:TagVisualizer.Definitions>
+            </s:TagVisualizer>
         </Grid>
-        <!-- ScatterView -->
-            <s:ScatterView x:Name="scatter_main" s:SurfaceDragDrop.Drop="ScatterViewDrop" AllowDrop="True">
+       
 
-                <s:ScatterView.ItemContainerStyle>
-
-                    <Style TargetType="{x:Type s:ScatterViewItem}">
-
-                        <Setter Property="Template">
-
-                            <Setter.Value>
-
-                                <ControlTemplate TargetType="{x:Type s:ScatterViewItem}">
-
-                                    <ContentPresenter/>
-
-                                </ControlTemplate>
-
-                            </Setter.Value>
-
-                        </Setter>
-
-                    </Style>
-
-                </s:ScatterView.ItemContainerStyle>
-  
-<!--Vue Lieu de la maison -->
-</s:ScatterView>
-        <Grid Name="maison" Visibility="Hidden">
-            <TextBlock Margin="5,0,5,0" Foreground="LightPink"  FontSize="50" HorizontalAlignment="Center">Choisir une pièce</TextBlock>
-            <StackPanel  Orientation="Horizontal" Height="auto" Width="auto"  >
-                <Image Source="/Resources/cuisine.jpg" Width="350" Height="350" Margin="50" >
-                    <Image.RenderTransform>
-                        <ScaleTransform x:Name="cuisineScale" ScaleX="1" ScaleY="1" CenterX="200"  CenterY="150"/>
-                    </Image.RenderTransform>
-                </Image>
-                <Image Source="/Resources/salon.jpg" Width="350" Height="350" Margin="50">
-                    <Image.RenderTransform>
-                        <ScaleTransform x:Name="salonScale" ScaleX="1" ScaleY="1" CenterX="200"  CenterY="150"/>
-                    </Image.RenderTransform>
-                </Image>
-                <Button Click="salledabain_Click" Name="buttonSalledebain" Width="350"  Height="350">
-                    <Button.RenderTransform>
-                        <ScaleTransform x:Name="salledebainScale" ScaleX="1" ScaleY="1" CenterX="200"  CenterY="150"/>
-                    </Button.RenderTransform>
-                    <Button.Template>
-                        <ControlTemplate>
-                            <Image Source="/Resources/salledebain.jpg" Width="350" Height="350" />
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-            </StackPanel>
-        </Grid>
-        
-<!--Vue Actions possibles-->
-        <Grid Name="atelier" Visibility="Hidden">
-            <StackPanel>
-                <TextBlock  Margin="400,0" Foreground="LightPink"  FontSize="50"  Grid.Column="0" Grid.Row="0" >Que voulez-vous faire ?</TextBlock>
-                <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="300" />
-                <RowDefinition Height="300" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <Button Click="brosseadent_Click" Name="brosseadent" Width="350"  Height="350" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Margin="200,0">
-                    <Button.RenderTransform>
-                        <ScaleTransform x:Name="brosseadentScale" ScaleX="1" ScaleY="1" CenterX="200"  CenterY="150"/>
-                    </Button.RenderTransform>
-                    <Button.Template>
-                        <ControlTemplate>
-                            <Image Source="/Resources/brosse_grand.png"  />
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-
-            <Button Click="brosseacheveux_Click" Name="brosseacheveux" Width="350"  Height="350"  Grid.Column="1" Grid.Row="0" Margin="0" >
-                    <Button.RenderTransform>
-                        <ScaleTransform x:Name="brosseacheveuxScale" ScaleX="1" ScaleY="1" CenterX="200"  CenterY="150"/>
-                    </Button.RenderTransform>
-                    <Button.Template>
-                        <ControlTemplate>
-                            <Image Source="/Resources/brosse_cheveux.png"  />
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-
-            <Button Click="rasoir_Click" Name="rasoir" Width="350"  Height="350" Grid.Column="0" Grid.Row="1"  >
-                    <Button.RenderTransform>
-                        <ScaleTransform x:Name="rasoirScale" ScaleX="1" ScaleY="1" CenterX="200"  CenterY="150"/>
-                    </Button.RenderTransform>
-                    <Button.Template>
-                        <ControlTemplate>
-                            <Image Source="/Resources/rasoir.png"  />
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-
-            <Button Click="douche_Click" Name="douche" Width="350"  Height="350" Grid.Column="1" Grid.Row="1" Margin="0" >
-                    <Button.RenderTransform>
-                        <ScaleTransform x:Name="doucheScale" ScaleX="1" ScaleY="1" CenterX="200"  CenterY="150"/>
-                    </Button.RenderTransform>
-                    <Button.Template>
-                        <ControlTemplate>
-                            <Image Source="/Resources/douche.png"  />
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                </Grid>
-                </StackPanel>
-        </Grid>
-        
 <!--Vue objet à poser sur table-->
         <!--Visible Hidden -->
         <Grid Name="objet" Visibility="Hidden">
@@ -247,8 +135,7 @@
                         <Grid >
                             <s:TagVisualizer  Height="650" Width="1920" Name="tagBrosseaDent"   VisualizationAdded="OnVisualizationAdded">
                                 <s:TagVisualizer.Definitions>
-                                    <s:TagVisualizationDefinition
-                                                  Value="0x1" 
+                                    <s:TagVisualizationDefinition Value="0x1" 
                                              OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0"
                                                   UsesTagOrientation="True"
                                               />
@@ -281,15 +168,17 @@
                 </WrapPanel>
             </StackPanel>
         </Grid>
-        <Grid Name="ordonnancement" Visibility="Hidden">
+        <Grid Name="ordonnancement" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
+            
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
+            
             <WrapPanel Name="friseHaut" Grid.Column="0" Grid.Row="0" >
                 <Image Name="fleche" Margin="10,0" Height="200" Width="300"  Source="/Resources/friseG.png"  />
                 <Image Name="bloc1" Margin="10,0" Height="200" Width="300"  Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True" />
@@ -298,6 +187,7 @@
                 <Image Name="bloc4" Margin="10,0"  Height="200" Width="300" Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True"/>
                 <Image Name="bloc5" Margin="10,0"  Height="200" Width="300" Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True"/>
             </WrapPanel>
+            
             <WrapPanel Name="ActionPanel" Grid.Column="0" Grid.Row="1" Margin="0,100" >
                 <Image Name="ActionBrosser" Margin="10,0" Height="300" Width="300"  Source="/Resources/brosser.jpg" MouseMove="List_MouseMove"  MouseUp="mouseUp" MouseDown="mouseDown" GiveFeedback="img_GiveFeedback" >
                     <Image.RenderTransform>

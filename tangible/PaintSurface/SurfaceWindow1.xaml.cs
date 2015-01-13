@@ -139,38 +139,12 @@ namespace PaintSurface
         private void itemPutOnTable(object sender, TagVisualizerEventArgs e)
         {
             myGrid.Visibility = Visibility.Hidden;
-            maison.Visibility = Visibility.Visible;
-
+            objet.Visibility = Visibility.Visible;
             foundObject();
         }
 
-        public void foundObject()
+        private async void foundObject()
         {
-
-        }
-
-        private void ScatterViewDrop(object sender, SurfaceDragDropEventArgs e)
-        {
-            ImageSource i = new BitmapImage(new Uri(e.Cursor.Data as String));
-
-            fleche.Source = i;
-        }
-
-
-        private async void brosseadent_Click(object sender, RoutedEventArgs e)
-        {
-            brossezdent.Stop();
-            rasez.Stop();
-            coiffez.Stop();
-            douchez.Stop();
-            brossezdent = null;
-            rasez = null;
-            coiffez = null;
-            douchez = null;
-
-            atelier.Visibility = Visibility.Hidden;
-            objet.Visibility = Visibility.Visible;
-            
             //Objet en Texte
             await Task.Delay(3000);
             brosseDent.Source = new BitmapImage(new Uri("/Resources/brosseadents.png", UriKind.Relative));
@@ -211,16 +185,6 @@ namespace PaintSurface
             catch (System.NullReferenceException) { }
         }
 
-    
-        private void valideObjet(){
-
-            if (brosseadentBool && verreBool && dentifriceBool)
-            {
-                aideTop.Visibility = Visibility.Hidden;
-                aideTop.Visibility = Visibility.Hidden;
-                ordonnancement.Visibility = Visibility.Visible;
-            }
-        }
         private void OnVisualizationAdded(object sender, TagVisualizerEventArgs e)
         {
             switch (e.TagVisualization.VisualizedTag.Value)
@@ -231,6 +195,20 @@ namespace PaintSurface
                 default: break;
             }
         }
+ 
+        private void valideObjet(){
+
+            if (brosseadentBool && verreBool && dentifriceBool)
+            {
+                aideTop.Visibility = Visibility.Hidden;
+                aideTop.Visibility = Visibility.Hidden;
+                ordonnancement.Visibility = Visibility.Visible;
+            }
+        }
+
+
+
+
 
         private bool t = false;
         private void List_MouseMove(object sender, MouseEventArgs e)
