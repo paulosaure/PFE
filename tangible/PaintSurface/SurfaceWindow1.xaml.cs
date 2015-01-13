@@ -29,11 +29,8 @@ namespace PaintSurface
     /// </summary>
     public partial class SurfaceWindow1 : SurfaceWindow
     {
-        private Process _serverProcess;
-
-        private int _serverPort = 8080;
         private bool brosseadentBool = false, verreBool = false, dentifriceBool = false;
-        private SocketManager _sm;
+    
         //Vue choix lieu
         private MediaPlayer cuisine = new MediaPlayer();
         private MediaPlayer salon = new MediaPlayer();
@@ -49,7 +46,6 @@ namespace PaintSurface
         private MediaPlayer brosseadentSon = new MediaPlayer();
         private MediaPlayer dentifriceSon = new MediaPlayer();
         private MediaPlayer verreSon = new MediaPlayer();
-        private Point startPoint;
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -72,43 +68,8 @@ namespace PaintSurface
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
 
-            this._startServer();
-
-            string localIp = this._getLocalIPAddress();
-
-            //Console.WriteLine("http://" + localIp + ":" + this._serverPort.ToString());
-
-            this._sm = new SocketManager("http://localhost:" + this._serverPort.ToString());
-
         }
 
-        private void _startServer()
-        {
-            this._serverProcess = new Process();
-            this._serverProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            this._serverProcess.StartInfo.CreateNoWindow = false;
-            this._serverProcess.StartInfo.UseShellExecute = false;
-            this._serverProcess.StartInfo.FileName = "cmd.exe";
-            this._serverProcess.StartInfo.Arguments = "/c cd ../../../PaintServer/PaintServer/ & node PaintServer.js";
-            this._serverProcess.EnableRaisingEvents = true;
-            this._serverProcess.Start();
-        }
-
-        private string _getLocalIPAddress()
-        {
-            IPHostEntry host;
-            string localIP = "";
-            host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (IPAddress ip in host.AddressList)
-            {
-                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                {
-                    localIP = ip.ToString();
-                    break;
-                }
-            }
-            return localIP;
-        }
 
         /// <summary>
         /// Occurs when the window is about to close. 
@@ -117,11 +78,6 @@ namespace PaintSurface
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            try
-            {
-                this._serverProcess.CloseMainWindow();
-            }
-            catch (Exception ex) { }
             // Remove handlers for window availability events
             RemoveWindowAvailabilityHandlers();
         }
@@ -180,84 +136,19 @@ namespace PaintSurface
             //TODO: disable audio, animations here
         }
 
-        private void touchez_Click(object sender, RoutedEventArgs e)
+        private void itemPutOnTable(object sender, TagVisualizerEventArgs e)
         {
             myGrid.Visibility = Visibility.Hidden;
             maison.Visibility = Visibility.Visible;
 
-            animeMaison();
+            foundObject();
         }
 
-        private async void animeMaison()
+        public void foundObject()
         {
-            DoubleAnimation da = new DoubleAnimation();
-            da.To = 1.2;
-            da.Duration = new Duration(TimeSpan.FromSeconds(1));
-            da.AutoReverse = true;
 
-            await Task.Delay(1000);
-            cuisineScale.BeginAnimation(ScaleTransform.ScaleXProperty, da);
-            cuisineScale.BeginAnimation(ScaleTransform.ScaleYProperty, da);
-            try
-            {
-                cuisine.Play();
-            }
-            catch (System.NullReferenceException) { }
-
-            await Task.Delay(2000);
-            salonScale.BeginAnimation(ScaleTransform.ScaleXProperty, da);
-            salonScale.BeginAnimation(ScaleTransform.ScaleYProperty, da);
-            try
-            {
-                salon.Play();
-            }
-            catch (System.NullReferenceException) { }
-
-            await Task.Delay(2000);
-            salledebainScale.BeginAnimation(ScaleTransform.ScaleXProperty, da);
-            salledebainScale.BeginAnimation(ScaleTransform.ScaleYProperty, da);
-            try{
-                salledebain.Play();
-            }
-            catch (System.NullReferenceException) { }
         }
 
-        private async void animeSalleDeBain()
-        {
-            DoubleAnimation da = new DoubleAnimation();
-            da.To = 1.2;
-            da.Duration = new Duration(TimeSpan.FromSeconds(1));
-            da.AutoReverse = true;
-
-            await Task.Delay(1000);
-            brosseadentScale.BeginAnimation(ScaleTransform.ScaleXProperty, da);
-            brosseadentScale.BeginAnimation(ScaleTransform.ScaleYProperty, da);
-            try {
-                brossezdent.Play();
-            }
-            catch (System.NullReferenceException) { }
-            await Task.Delay(2000);
-            brosseacheveuxScale.BeginAnimation(ScaleTransform.ScaleXProperty, da);
-            brosseacheveuxScale.BeginAnimation(ScaleTransform.ScaleYProperty, da);
-            try{
-                coiffez.Play();
-            }
-            catch (System.NullReferenceException) { }
-            await Task.Delay(2000);
-            rasoirScale.BeginAnimation(ScaleTransform.ScaleXProperty, da);
-            rasoirScale.BeginAnimation(ScaleTransform.ScaleYProperty, da);
-            try {
-                rasez.Play();
-            }
-            catch (System.NullReferenceException) { }
-            await Task.Delay(2000);
-            doucheScale.BeginAnimation(ScaleTransform.ScaleXProperty, da);
-            doucheScale.BeginAnimation(ScaleTransform.ScaleYProperty, da);
-            try{
-                douchez.Play();
-            }
-            catch (System.NullReferenceException) { }
-        }
         private void ScatterViewDrop(object sender, SurfaceDragDropEventArgs e)
         {
             ImageSource i = new BitmapImage(new Uri(e.Cursor.Data as String));
@@ -265,24 +156,6 @@ namespace PaintSurface
             fleche.Source = i;
         }
 
-        private void ScatterViewItemHoldGesture(object sender, TouchEventArgs e)
-        {
-
-        }
-
-        private void salledabain_Click(object sender, RoutedEventArgs e)
-        {
-            cuisine.Stop();
-            salon.Stop();
-            salledebain.Stop();
-            cuisine = null;
-            salon = null;
-            salledebain = null;
-
-            maison.Visibility = Visibility.Hidden;
-            atelier.Visibility = Visibility.Visible;
-            animeSalleDeBain();
-        }
 
         private async void brosseadent_Click(object sender, RoutedEventArgs e)
         {
@@ -338,20 +211,7 @@ namespace PaintSurface
             catch (System.NullReferenceException) { }
         }
 
-        private void brosseacheveux_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void douche_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void rasoir_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+    
         private void valideObjet(){
 
             if (brosseadentBool && verreBool && dentifriceBool)
@@ -436,6 +296,8 @@ namespace PaintSurface
             Application.Current.Shutdown();
 
         }
+
+
     }
 }
 

@@ -10,7 +10,8 @@
         
 <!--Vue présentation roue-->
         <Grid  x:Name="myGrid" Visibility="Visible">
-        <Image Source="/Resources/rond.png"  Width="360" Height="360">
+            <!--Visible Hidden -->
+            <Image Source="/Resources/rond.png"  Width="360" Height="360">
             <Image.RenderTransform>
                 <RotateTransform CenterX="180" CenterY="180" />
             </Image.RenderTransform>
@@ -60,27 +61,32 @@
                 </Style>
             </Image.Style>
         </Image>
-        <Button Height="400" Width="400" Click="touchez_Click" Name="button" RenderTransformOrigin="0.5,0.5">
-            <Button.Template>
-                <ControlTemplate>
-                    <Image Source="/Resources/text.png"  Width="400" Height="400" Name="touchez">
-                    <Image.RenderTransform>
-                        <ScaleTransform x:Name="ImageScale" ScaleX="1" ScaleY="1" CenterX="200"  CenterY="150"/>
-                    </Image.RenderTransform>
-                    <Image.Triggers>
-                        <EventTrigger RoutedEvent="Image.Loaded">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleX)" To="1.5" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
-                                        <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleY)" To="1.5" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </Image.Triggers>
-                    </Image>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
+
+        <Image Source="/Resources/textPosez.png"  Width="400" Height="400" Name="touchez">
+            <Image.RenderTransform>
+                <ScaleTransform x:Name="ImageScale" ScaleX="1" ScaleY="1" CenterX="200"  CenterY="150"/>
+            </Image.RenderTransform>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="Image.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleX)" To="1.5" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                            <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleY)" To="1.5" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
+        </Image>
+
+        <s:TagVisualizer  Height="650" Width="1920" Name="tagItem"   VisualizationAdded="itemPutOnTable">
+            <s:TagVisualizer.Definitions>
+                <s:TagVisualizationDefinition Value="0x1" 
+                                             OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0"
+                                                  UsesTagOrientation="True"
+                                              />
+            </s:TagVisualizer.Definitions>
+        </s:TagVisualizer>
+
         </Grid>
         <!-- ScatterView -->
             <s:ScatterView x:Name="scatter_main" s:SurfaceDragDrop.Drop="ScatterViewDrop" AllowDrop="True">
@@ -194,7 +200,9 @@
                 </Grid>
                 </StackPanel>
         </Grid>
+        
 <!--Vue objet à poser sur table-->
+        <!--Visible Hidden -->
         <Grid Name="objet" Visibility="Hidden">
             <StackPanel >
                 <WrapPanel Name="aideTop" Height="200"  Orientation="Horizontal" Margin="0,0,0,0">
@@ -239,17 +247,17 @@
                         <Grid >
                             <s:TagVisualizer  Height="650" Width="1920" Name="tagBrosseaDent"   VisualizationAdded="OnVisualizationAdded">
                                 <s:TagVisualizer.Definitions>
-                                    <s:TagVisualizationDefinition Source="brosseDents.xaml"
+                                    <s:TagVisualizationDefinition
                                                   Value="0x1" 
                                              OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0"
                                                   UsesTagOrientation="True"
                                               />
-                                    <s:TagVisualizationDefinition Value="0x2"  Source="dentifrice.xaml"
+                                    <s:TagVisualizationDefinition Value="0x2"
                                               OrientationOffsetFromTag="0"
                                               PhysicalCenterOffsetFromTag="0,0" 
                                               UsesTagOrientation="True"
                                               />
-                                    <s:TagVisualizationDefinition Value="0x3" Source="verre.xaml"
+                                    <s:TagVisualizationDefinition Value="0x3"
                                               OrientationOffsetFromTag="0"
                                               PhysicalCenterOffsetFromTag="0,0" 
                                               UsesTagOrientation="True"
