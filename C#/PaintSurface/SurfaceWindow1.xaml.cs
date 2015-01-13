@@ -20,6 +20,9 @@ using System.Diagnostics;
 using System.Net;
 using System.IO;
 using System.Threading.Tasks;
+using SocketIOClient;
+using System.ComponentModel;
+
 namespace PaintSurface
 {
     /// <summary>
@@ -29,48 +32,57 @@ namespace PaintSurface
     {
         private Process _serverProcess;
 
-        private int _serverPort = 8080;
+        ///private int _serverPort = 8080;
         private bool brosseadentBool = false, verreBool = false, dentifriceBool = false;
-        private SocketManager _sm;
+        //private SocketManager _sm;
+        //Vue choix lieu
         private MediaPlayer cuisine = new MediaPlayer();
         private MediaPlayer salon = new MediaPlayer();
         private MediaPlayer salledebain = new MediaPlayer();
+
+        //Vue actions
         private MediaPlayer coiffez = new MediaPlayer();
         private MediaPlayer rasez = new MediaPlayer();
         private MediaPlayer brossezdent = new MediaPlayer();
         private MediaPlayer douchez = new MediaPlayer();
+
+        //Vue objets
         private MediaPlayer brosseadentSon = new MediaPlayer();
         private MediaPlayer dentifriceSon = new MediaPlayer();
         private MediaPlayer verreSon = new MediaPlayer();
+        
         /// <summary>
         /// Default constructor.
         /// </summary>
         public SurfaceWindow1()
         {
             InitializeComponent();
-
+            this.Closing += new CancelEventHandler(Window1_Closing);
             //les sons
-            cuisine.Open(new Uri(@"Resources\cuisine.wav", UriKind.Relative));
-            salon.Open(new Uri(@"Resources\salon.wav", UriKind.Relative));
-            salledebain.Open(new Uri(@"Resources\salledebain.wav", UriKind.Relative));
-            coiffez.Open(new Uri(@"Resources\coiffez.wav", UriKind.Relative));
-            rasez.Open(new Uri(@"Resources\rasez.wav", UriKind.Relative));
-            douchez.Open(new Uri(@"Resources\douchez.wav", UriKind.Relative));
-            brossezdent.Open(new Uri(@"Resources\brossezlesdents.wav", UriKind.Relative));
-            brosseadentSon.Open(new Uri(@"Resources\sonBrosseDent.wav", UriKind.Relative));
-            dentifriceSon.Open(new Uri(@"Resources\sonDentifrice.wav", UriKind.Relative));
-            verreSon.Open(new Uri(@"Resources\sonVerre.wav", UriKind.Relative));
-
+            try
+            {
+                cuisine.Open(new Uri(@"\Resources\salledebain.wav", UriKind.Relative));
+                salon.Open(new Uri(@"Resources\salledebain.wav", UriKind.Relative));
+                salledebain.Open(new Uri(@"Resources\salledebain.wav", UriKind.Relative));
+                coiffez.Open(new Uri(@"Resources\coiffez.wav", UriKind.Relative));
+                rasez.Open(new Uri(@"Resources\rasez.wav", UriKind.Relative));
+                douchez.Open(new Uri(@"Resources\douchez.wav", UriKind.Relative));
+                brossezdent.Open(new Uri(@"Resources\brossezlesdents.wav", UriKind.Relative));
+                brosseadentSon.Open(new Uri(@"Resources\sonBrosseDent.wav", UriKind.Relative));
+                dentifriceSon.Open(new Uri(@"Resources\sonDentifrice.wav", UriKind.Relative));
+                verreSon.Open(new Uri(@"Resources\sonVerre.wav", UriKind.Relative));
+            }
+            catch (System.Exception e) { Trace.WriteLine("EXECPTION = "+e)}
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
 
-            this._startServer();
+           /* this._startServer();
 
             string localIp = this._getLocalIPAddress();
 
-            Console.WriteLine("http://" + localIp + ":" + this._serverPort.ToString());
+            //Console.WriteLine("http://" + localIp + ":" + this._serverPort.ToString());
 
-            this._sm = new SocketManager("http://localhost:" + this._serverPort.ToString());
+            this._sm = new SocketManager("http://localhost:" + this._serverPort.ToString());*/
 
         }
 
@@ -106,15 +118,17 @@ namespace PaintSurface
         /// Occurs when the window is about to close. 
         /// </summary>
         /// <param name="e"></param>
-        protected override void OnClosed(EventArgs e)
+      /*  protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-
-            this._serverProcess.CloseMainWindow();
-
+            try
+            {
+                this._serverProcess.CloseMainWindow();
+            }
+            catch (Exception ex) { Console.WriteLine(ex); }
             // Remove handlers for window availability events
             RemoveWindowAvailabilityHandlers();
-        }
+        }*/
 
         /// <summary>
         /// Adds handlers for window availability events.
@@ -170,7 +184,7 @@ namespace PaintSurface
             //TODO: disable audio, animations here
         }
 
-        private  void touchez_Click(object sender, RoutedEventArgs e)
+        private void touchez_Click(object sender, RoutedEventArgs e)
         {
             myGrid.Visibility = Visibility.Hidden;
             maison.Visibility = Visibility.Visible;
@@ -184,17 +198,32 @@ namespace PaintSurface
             da.To = 1.2;
             da.Duration = new Duration(TimeSpan.FromSeconds(1));
             da.AutoReverse = true;
+
+            await Task.Delay(1000);
             cuisineScale.BeginAnimation(ScaleTransform.ScaleXProperty, da);
             cuisineScale.BeginAnimation(ScaleTransform.ScaleYProperty, da);
-            cuisine.Play();
+            try
+            {
+                cuisine.Play();
+            }
+            catch (System.Exception e) { Trace.WriteLine("execption = " +e); }
+
             await Task.Delay(2000);
             salonScale.BeginAnimation(ScaleTransform.ScaleXProperty, da);
             salonScale.BeginAnimation(ScaleTransform.ScaleYProperty, da);
-            salon.Play();
+            try
+            {
+                salon.Play();
+            }
+            catch (System.Exception e) { Trace.WriteLine("execption = " + e); }
+
             await Task.Delay(2000);
             salledebainScale.BeginAnimation(ScaleTransform.ScaleXProperty, da);
             salledebainScale.BeginAnimation(ScaleTransform.ScaleYProperty, da);
-            salledebain.Play();
+            try{
+                salledebain.Play();
+            }
+            catch (System.Exception e) { Trace.WriteLine("execption = " + e); }
         }
 
         private async void animeSalleDeBain()
@@ -203,25 +232,41 @@ namespace PaintSurface
             da.To = 1.2;
             da.Duration = new Duration(TimeSpan.FromSeconds(1));
             da.AutoReverse = true;
+
+            await Task.Delay(1000);
             brosseadentScale.BeginAnimation(ScaleTransform.ScaleXProperty, da);
             brosseadentScale.BeginAnimation(ScaleTransform.ScaleYProperty, da);
-            brossezdent.Play();
+            try {
+                brossezdent.Play();
+            }
+            catch (System.Exception e) { Trace.WriteLine("execption = " + e); }
             await Task.Delay(2000);
             brosseacheveuxScale.BeginAnimation(ScaleTransform.ScaleXProperty, da);
             brosseacheveuxScale.BeginAnimation(ScaleTransform.ScaleYProperty, da);
-            coiffez.Play();
+            try{
+                coiffez.Play();
+            }
+            catch (System.Exception e) { Trace.WriteLine("execption = " + e); }
             await Task.Delay(2000);
             rasoirScale.BeginAnimation(ScaleTransform.ScaleXProperty, da);
             rasoirScale.BeginAnimation(ScaleTransform.ScaleYProperty, da);
-            rasez.Play();
+            try {
+                rasez.Play();
+            }
+            catch (System.Exception e) { Trace.WriteLine("execption = " + e); }
             await Task.Delay(2000);
             doucheScale.BeginAnimation(ScaleTransform.ScaleXProperty, da);
             doucheScale.BeginAnimation(ScaleTransform.ScaleYProperty, da);
-            douchez.Play();
+            try{
+                douchez.Play();
+            }
+            catch (System.Exception e) { Trace.WriteLine("execption = " + e); }
         }
         private void ScatterViewDrop(object sender, SurfaceDragDropEventArgs e)
         {
+            ImageSource i = new BitmapImage(new Uri(e.Cursor.Data as String));
 
+            fleche.Source = i;
         }
 
         private void ScatterViewItemHoldGesture(object sender, TouchEventArgs e)
@@ -231,6 +276,13 @@ namespace PaintSurface
 
         private void salledabain_Click(object sender, RoutedEventArgs e)
         {
+            cuisine.Stop();
+            salon.Stop();
+            salledebain.Stop();
+            cuisine = null;
+            salon = null;
+            salledebain = null;
+
             maison.Visibility = Visibility.Hidden;
             atelier.Visibility = Visibility.Visible;
             animeSalleDeBain();
@@ -238,23 +290,56 @@ namespace PaintSurface
 
         private async void brosseadent_Click(object sender, RoutedEventArgs e)
         {
+            brossezdent.Stop();
+            rasez.Stop();
+            coiffez.Stop();
+            douchez.Stop();
+            brossezdent = null;
+            rasez = null;
+            coiffez = null;
+            douchez = null;
+
             atelier.Visibility = Visibility.Hidden;
             objet.Visibility = Visibility.Visible;
+            
+            //Objet en Texte
             await Task.Delay(3000);
-            ImageBrush myBrush = new ImageBrush();
-            myBrush.ImageSource = new BitmapImage(new Uri(@"Resources/brosseadents.png", UriKind.Relative));
-            to.Fill = myBrush;
-            dentifriceImage.Source = new BitmapImage(new Uri("/Resources/dentifrice.png", UriKind.Relative));
-            verreImage.Source = new BitmapImage(new Uri("/Resources/verre.png", UriKind.Relative));
+            brosseDent.Source = new BitmapImage(new Uri("/Resources/brosseadents.png", UriKind.Relative));
+            dentifrice.Source = new BitmapImage(new Uri("/Resources/dentifrice.png", UriKind.Relative));
+            verre.Source = new BitmapImage(new Uri("/Resources/verre.png", UriKind.Relative));
+            brosseDent2.Source = new BitmapImage(new Uri("/Resources/brosseadents.png", UriKind.Relative));
+            dentifrice2.Source = new BitmapImage(new Uri("/Resources/dentifrice.png", UriKind.Relative));
+            verre2.Source = new BitmapImage(new Uri("/Resources/verre.png", UriKind.Relative));
+
+            //Objet en Image
             await Task.Delay(3000);
-             myBrush.ImageSource= new BitmapImage(new Uri(@"Resources/brosse_grandT.png", UriKind.Relative));
-             to.Fill = myBrush;
-            dentifriceImage.Source = new BitmapImage(new Uri("/Resources/dentifrice_grand.png", UriKind.Relative));
-            verreImage.Source = new BitmapImage(new Uri("/Resources/verre_grand.png", UriKind.Relative));
+            brosseDent.Source = new BitmapImage(new Uri("/Resources/brosse_grandT.png", UriKind.Relative));
+            dentifrice.Source = new BitmapImage(new Uri("/Resources/dentifrice_grand.png", UriKind.Relative));
+            verre.Source = new BitmapImage(new Uri("/Resources/verre_grand.png", UriKind.Relative));
+            brosseDent2.Source = new BitmapImage(new Uri("/Resources/brosse_grandT.png", UriKind.Relative));
+            dentifrice2.Source = new BitmapImage(new Uri("/Resources/dentifrice_grand.png", UriKind.Relative));
+            verre2.Source = new BitmapImage(new Uri("/Resources/verre_grand.png", UriKind.Relative));
+            //Objet Son
             await Task.Delay(3000);
-            brosseadentSon.Play();
-            dentifriceSon.Play();
-            verreSon.Play();
+            try
+            {
+                brosseadentSon.Play();
+            }
+            catch (System.NullReferenceException) { }
+
+            await Task.Delay(2000);
+            try
+            {
+                dentifriceSon.Play();
+            }
+            catch (System.NullReferenceException) { }
+
+            await Task.Delay(2000);
+            try
+            {
+                verreSon.Play();
+            }
+            catch (System.NullReferenceException) { }
         }
 
         private void brosseacheveux_Click(object sender, RoutedEventArgs e)
@@ -271,15 +356,98 @@ namespace PaintSurface
         {
 
         }
+        private void valideObjet(){
+
+            if (brosseadentBool && verreBool && dentifriceBool)
+            {
+                aideTop.Visibility = Visibility.Hidden;
+                aideTop.Visibility = Visibility.Hidden;
+                ordonnancement.Visibility = Visibility.Visible;
+            }
+        }
         private void OnVisualizationAdded(object sender, TagVisualizerEventArgs e)
         {
-            switch(e.TagVisualization.VisualizedTag.Value){
-                case 1: Trace.WriteLine("brosse a dents"); to.Stroke = new SolidColorBrush(Colors.Green); break;
-                case 2: Trace.WriteLine("dentifrice"); break;
-                case 3: Trace.WriteLine("verre"); break;
+            switch (e.TagVisualization.VisualizedTag.Value)
+            {
+                case 1: borderAideBrosseDent.BorderBrush = Brushes.Green; borderAideBrosseDent2.BorderBrush = Brushes.Green; brosseadentBool = true; valideObjet(); break;
+                case 2: borderDentifrice.BorderBrush = Brushes.Green; borderDentifrice2.BorderBrush = Brushes.Green; borderDentifrice.Visibility = Visibility.Visible; dentifriceBool = true; valideObjet(); break;
+                case 3: borderVerre.BorderBrush = Brushes.Green; borderVerre2.BorderBrush = Brushes.Green; borderVerre.Visibility = Visibility.Visible; verreBool = true; valideObjet(); break;
                 default: break;
             }
+        }
 
+        private bool t = false;
+        private void List_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (t) { 
+            Point mousePos = e.GetPosition(null);
+            Point position = ActionBrosser.PointToScreen(new Point(0d, 0d));
+            DoubleAnimation da = new DoubleAnimation();
+            //Trace.WriteLine("PosX= " + mousePos.X + " PosY = " + mousePos.Y);
+            //Trace.WriteLine("ImagePosX= " +position.X + " ImagePosY = " + position.Y);
+                // Get the dragged ListViewItem
+                Image img = sender as Image;
+                DataObject data = new DataObject(typeof(ImageSource), img.Source);
+                DragDrop.DoDragDrop(img, data, DragDropEffects.Move);
+        }
+        }
+
+        private void DropList_Drop(object sender, DragEventArgs e)
+        {
+            Image img = sender as Image;
+            if (img != null)
+            {
+                // Save the current Fill brush so that you can revert back to this value in DragLeave.
+   
+
+                // If the DataObject contains string data, extract it.
+                if (e.Data.GetData(typeof(ImageSource)) != null)
+                {
+                    //Trace.WriteLine("Entre DROP 2");
+                    ImageSource image = e.Data.GetData(typeof(ImageSource)) as ImageSource;
+
+                    img.Source = image;
+                }
+            }
+        }
+
+        private void img_GiveFeedback(object sender, System.Windows.GiveFeedbackEventArgs e)
+        {
+
+        }
+
+        private void mouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Image img = sender as Image;
+            if (img != null)
+            {
+                Point mousePos = e.GetPosition(null);
+                Point position = ActionBrosser.PointToScreen(new Point(0d, 0d));
+                DoubleAnimation da = new DoubleAnimation();
+                //Trace.WriteLine("PosX= " + mousePos.X + " PosY = " + mousePos.Y);
+                //Trace.WriteLine("ImagePosX= " + position.X + " ImagePosY = " + position.Y);
+                t = true;
+            }
+        }
+
+        private void mouseUp(object sender, MouseButtonEventArgs e)
+        {
+            t = false;
+        }
+        void Window1_Closing(object sender, CancelEventArgs e)
+        {
+
+            Application.Current.Shutdown();
+
+        }
+
+        private void touch(object sender, TouchEventArgs e)
+        {
+            myGrid.Visibility = Visibility.Hidden;
+            maison.Visibility = Visibility.Visible;
+
+            animeMaison();
         }
     }
 }
+
