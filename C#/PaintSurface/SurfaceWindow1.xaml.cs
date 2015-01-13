@@ -20,7 +20,6 @@ using System.Diagnostics;
 using System.Net;
 using System.IO;
 using System.Threading.Tasks;
-using SocketIOClient;
 using System.ComponentModel;
 
 namespace PaintSurface
@@ -61,8 +60,8 @@ namespace PaintSurface
             //les sons
             try
             {
-                cuisine.Open(new Uri(@"\Resources\salledebain.wav", UriKind.Relative));
-                salon.Open(new Uri(@"Resources\salledebain.wav", UriKind.Relative));
+                cuisine.Open(new Uri(@"\Resources\cuisine.wav", UriKind.Relative));
+                salon.Open(new Uri(@"Resources\salon.wav", UriKind.Relative));
                 salledebain.Open(new Uri(@"Resources\salledebain.wav", UriKind.Relative));
                 coiffez.Open(new Uri(@"Resources\coiffez.wav", UriKind.Relative));
                 rasez.Open(new Uri(@"Resources\rasez.wav", UriKind.Relative));
@@ -72,63 +71,12 @@ namespace PaintSurface
                 dentifriceSon.Open(new Uri(@"Resources\sonDentifrice.wav", UriKind.Relative));
                 verreSon.Open(new Uri(@"Resources\sonVerre.wav", UriKind.Relative));
             }
-            catch (System.Exception e) { Trace.WriteLine("EXECPTION = "+e)}
+            catch (System.Exception e) { Trace.WriteLine("EXECPTION = " + e); }
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
-
-           /* this._startServer();
-
-            string localIp = this._getLocalIPAddress();
-
-            //Console.WriteLine("http://" + localIp + ":" + this._serverPort.ToString());
-
-            this._sm = new SocketManager("http://localhost:" + this._serverPort.ToString());*/
-
         }
 
-        private void _startServer()
-        {
-            this._serverProcess = new Process();
-            this._serverProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            this._serverProcess.StartInfo.CreateNoWindow = false;
-            this._serverProcess.StartInfo.UseShellExecute = false;
-            this._serverProcess.StartInfo.FileName = "cmd.exe";
-            this._serverProcess.StartInfo.Arguments = "/c cd ../../../PaintServer/PaintServer/ & node PaintServer.js";
-            this._serverProcess.EnableRaisingEvents = true;
-            this._serverProcess.Start();
-        }
-
-        private string _getLocalIPAddress()
-        {
-            IPHostEntry host;
-            string localIP = "";
-            host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (IPAddress ip in host.AddressList)
-            {
-                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                {
-                    localIP = ip.ToString();
-                    break;
-                }
-            }
-            return localIP;
-        }
-
-        /// <summary>
-        /// Occurs when the window is about to close. 
-        /// </summary>
-        /// <param name="e"></param>
-      /*  protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-            try
-            {
-                this._serverProcess.CloseMainWindow();
-            }
-            catch (Exception ex) { Console.WriteLine(ex); }
-            // Remove handlers for window availability events
-            RemoveWindowAvailabilityHandlers();
-        }*/
+         
 
         /// <summary>
         /// Adds handlers for window availability events.

@@ -91,7 +91,6 @@
       <DependentUpon>brosseDents.xaml</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="SocketManager.cs" />
     <Compile Include="SurfaceWindow1.xaml.cs">
       <DependentUpon>SurfaceWindow1.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -187,12 +186,6 @@
     <Resource Include="Resources\text.png" />
     <Resource Include="Resources\roue.png" />
     <Resource Include="Resources\rond.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SocketIO\SocketIOClient.csproj">
-      <Project>{352c9bc1-f74c-4741-a09d-7227bc60c057}</Project>
-      <Name>SocketIOClient</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
