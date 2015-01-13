@@ -10,7 +10,7 @@
         <Grid.Background>
             <ImageBrush ImageSource="/Resources/backgroud.jpg" />
         </Grid.Background>
-        
+
 
         <!--Vue présentation roue-->
         <Grid  x:Name="myGrid" Visibility="Visible" Grid.ColumnSpan="2">
@@ -127,9 +127,17 @@
         </Grid>
 
         <!--Vue Actions possibles-->
-        <Grid Name="atelier" Visibility="Hidden" Grid.ColumnSpan="2">
+        <Grid Name="atelier" Visibility="Hidden" Margin="10,54,-10,-54">
             <StackPanel>
-                <TextBlock  Margin="400,0" Foreground="LightPink"  FontSize="50"  Grid.Column="0" Grid.Row="0" >Que voulez-vous faire ?</TextBlock>
+                <TextBlock  Margin="679,0,0,0" Foreground="LightPink"  FontSize="50" RenderTransformOrigin="0.5,0.5" Width="643" >
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleY="0.658"/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="2.974"/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform><Run Text="Que voulez-vous faire ?"/></TextBlock>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="300" />
@@ -139,7 +147,7 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Button Click="brosseadent_Click" Name="brosseadent" Width="350"  Height="350" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Margin="200,0">
+                    <Button Click="brosseadent_Click" x:Name="brosseadent" Width="350"  Height="350" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Margin="200,67,202,183" Grid.RowSpan="2">
                         <Button.RenderTransform>
                             <ScaleTransform x:Name="brosseadentScale" ScaleX="1" ScaleY="1" CenterX="200"  CenterY="150"/>
                         </Button.RenderTransform>
@@ -150,7 +158,7 @@
                         </Button.Template>
                     </Button>
 
-                    <Button Click="brosseacheveux_Click" Name="brosseacheveux" Width="350"  Height="350"  Grid.Column="1" Grid.Row="0" Margin="0" >
+                    <Button Click="brosseacheveux_Click" x:Name="brosseacheveux" Width="350"  Height="350"  Grid.Column="1" Grid.Row="0" Margin="546,67,-541,183" Grid.RowSpan="2" >
                         <Button.RenderTransform>
                             <ScaleTransform x:Name="brosseacheveuxScale" ScaleX="1" ScaleY="1" CenterX="200"  CenterY="150"/>
                         </Button.RenderTransform>
@@ -161,7 +169,7 @@
                         </Button.Template>
                     </Button>
 
-                    <Button Click="rasoir_Click" Name="rasoir" Width="350"  Height="350" Grid.Column="0" Grid.Row="1"  >
+                    <Button Click="rasoir_Click" x:Name="rasoir" Width="350"  Height="350" Grid.Column="0" Grid.Row="1" Margin="200,184,203,-234"  >
                         <Button.RenderTransform>
                             <ScaleTransform x:Name="rasoirScale" ScaleX="1" ScaleY="1" CenterX="200"  CenterY="150"/>
                         </Button.RenderTransform>
@@ -172,7 +180,7 @@
                         </Button.Template>
                     </Button>
 
-                    <Button Click="douche_Click" Name="douche" Width="350"  Height="350" Grid.Column="1" Grid.Row="1" Margin="0" >
+                    <Button Click="douche_Click" x:Name="douche" Width="350"  Height="350" Grid.Column="1" Grid.Row="1" Margin="547,184,-541,-234" >
                         <Button.RenderTransform>
                             <ScaleTransform x:Name="doucheScale" ScaleX="1" ScaleY="1" CenterX="200"  CenterY="150"/>
                         </Button.RenderTransform>
