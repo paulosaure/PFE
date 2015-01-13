@@ -93,17 +93,27 @@
         <Grid Name="maison" Visibility="Hidden" Grid.ColumnSpan="2">
             <TextBlock Margin="5,0,5,0" Foreground="LightPink"  FontSize="50" HorizontalAlignment="Center">Choisir une pièce</TextBlock>
             <StackPanel  Orientation="Horizontal" Height="auto" Width="auto"  >
-                <Image Source="/Resources/cuisine.jpg" Width="350" Height="350" Margin="50" >
-                    <Image.RenderTransform>
-                        <ScaleTransform x:Name="cuisineScale" ScaleX="1" ScaleY="1" CenterX="200"  CenterY="150"/>
-                    </Image.RenderTransform>
-                </Image>
-                <Image Source="/Resources/salon.jpg" Width="350" Height="350" Margin="50">
-                    <Image.RenderTransform>
+                <Button  Name="buttonCuisine" Width="350"  Height="350" Margin="150,100,150,100">
+                    <Button.RenderTransform>
+                        <ScaleTransform x:Name= "cuisineScale" ScaleX="1" ScaleY="1" CenterX="200"  CenterY="150"/>
+                    </Button.RenderTransform>
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="/Resources/cuisine.jpg" Width="350" Height="350" />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button  Name="buttonSalon" Width="350"  Height="350" Margin="150,100,150,100">
+                    <Button.RenderTransform>
                         <ScaleTransform x:Name="salonScale" ScaleX="1" ScaleY="1" CenterX="200"  CenterY="150"/>
-                    </Image.RenderTransform>
-                </Image>
-                <Button Click="salledabain_Click" Name="buttonSalledebain" Width="350"  Height="350">
+                    </Button.RenderTransform>
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="/Resources/salon.jpg" Width="350" Height="350" />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Click="salledabain_Click" Name="buttonSalledebain" Width="350"  Height="350" Margin="150,100,150,100">
                     <Button.RenderTransform>
                         <ScaleTransform x:Name="salledebainScale" ScaleX="1" ScaleY="1" CenterX="200"  CenterY="150"/>
                     </Button.RenderTransform>
@@ -220,17 +230,17 @@
                         <Grid >
                             <s:TagVisualizer  Height="650" Width="1920" Name="tagBrosseaDent"   VisualizationAdded="OnVisualizationAdded">
                                 <s:TagVisualizer.Definitions>
-                                    <s:TagVisualizationDefinition Source="brosseDents.xaml"
+                                    <s:TagVisualizationDefinition Source="PaintSurface/brosseDents.xaml"
                                                   Value="0xC1" 
                                              OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0"
                                                   UsesTagOrientation="True"
                                               />
-                                    <s:TagVisualizationDefinition Value="0xE2"  Source="dentifrice.xaml"
+                                    <s:TagVisualizationDefinition Value="0xE2"  Source="PaintSurface/dentifrice.xaml"
                                               OrientationOffsetFromTag="0"
                                               PhysicalCenterOffsetFromTag="0,0" 
                                               UsesTagOrientation="True"
                                               />
-                                    <s:TagVisualizationDefinition Value="0xA8" Source="verre.xaml"
+                                    <s:TagVisualizationDefinition Value="0xA8" Source="PaintSurface/verre.xaml"
                                               OrientationOffsetFromTag="0"
                                               PhysicalCenterOffsetFromTag="0,0" 
                                               UsesTagOrientation="True"

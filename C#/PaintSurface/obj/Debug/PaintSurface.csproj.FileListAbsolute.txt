@@ -191,7 +191,6 @@ F:\Nouveau dossier\paw\C#\PaintSurface\bin\Debug\Resources\sonDentifrice.wav
 F:\Nouveau dossier\paw\C#\PaintSurface\bin\Debug\Resources\sonVerre.wav
 F:\Nouveau dossier\paw\C#\PaintSurface\bin\Debug\Resources\brossezlesdents.wav
 F:\Nouveau dossier\paw\C#\PaintSurface\bin\Debug\Resources\coiffez.wav
-F:\Nouveau dossier\paw\C#\PaintSurface\bin\Debug\Resources\cuisine.wav
 F:\Nouveau dossier\paw\C#\PaintSurface\bin\Debug\Resources\douchez.wav
 F:\Nouveau dossier\paw\C#\PaintSurface\bin\Debug\Resources\rasez.wav
 F:\Nouveau dossier\paw\C#\PaintSurface\bin\Debug\Resources\salledebain.wav
@@ -220,3 +219,4 @@ F:\Nouveau dossier\paw\C#\PaintSurface\obj\Debug\PaintSurface_MarkupCompile.cach
 F:\Nouveau dossier\paw\C#\PaintSurface\obj\Debug\PaintSurface.g.resources
 F:\Nouveau dossier\paw\C#\PaintSurface\obj\Debug\PaintSurface.Properties.Resources.resources
 F:\Nouveau dossier\paw\C#\PaintSurface\obj\Debug\PaintSurface.csproj.GenerateResource.Cache
+F:\Nouveau dossier\paw\C#\PaintSurface\bin\Debug\Resources\cuisine.wav

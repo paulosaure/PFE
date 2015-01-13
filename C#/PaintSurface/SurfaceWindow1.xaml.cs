@@ -32,9 +32,9 @@ namespace PaintSurface
     {
         private Process _serverProcess;
 
-        private int _serverPort = 8080;
+        ///private int _serverPort = 8080;
         private bool brosseadentBool = false, verreBool = false, dentifriceBool = false;
-        private SocketManager _sm;
+        //private SocketManager _sm;
         //Vue choix lieu
         private MediaPlayer cuisine = new MediaPlayer();
         private MediaPlayer salon = new MediaPlayer();
@@ -50,7 +50,7 @@ namespace PaintSurface
         private MediaPlayer brosseadentSon = new MediaPlayer();
         private MediaPlayer dentifriceSon = new MediaPlayer();
         private MediaPlayer verreSon = new MediaPlayer();
-        private Point startPoint;
+        
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -59,27 +59,30 @@ namespace PaintSurface
             InitializeComponent();
             this.Closing += new CancelEventHandler(Window1_Closing);
             //les sons
-            cuisine.Open(new Uri(@"Resources\cuisine.wav", UriKind.Relative));
-            salon.Open(new Uri(@"Resources\salon.wav", UriKind.Relative));
-            salledebain.Open(new Uri(@"Resources\salledebain.wav", UriKind.Relative));
-            coiffez.Open(new Uri(@"Resources\coiffez.wav", UriKind.Relative));
-            rasez.Open(new Uri(@"Resources\rasez.wav", UriKind.Relative));
-            douchez.Open(new Uri(@"Resources\douchez.wav", UriKind.Relative));
-            brossezdent.Open(new Uri(@"Resources\brossezlesdents.wav", UriKind.Relative));
-            brosseadentSon.Open(new Uri(@"Resources\sonBrosseDent.wav", UriKind.Relative));
-            dentifriceSon.Open(new Uri(@"Resources\sonDentifrice.wav", UriKind.Relative));
-            verreSon.Open(new Uri(@"Resources\sonVerre.wav", UriKind.Relative));
-
+            try
+            {
+                cuisine.Open(new Uri(@"\Resources\salledebain.wav", UriKind.Relative));
+                salon.Open(new Uri(@"Resources\salledebain.wav", UriKind.Relative));
+                salledebain.Open(new Uri(@"Resources\salledebain.wav", UriKind.Relative));
+                coiffez.Open(new Uri(@"Resources\coiffez.wav", UriKind.Relative));
+                rasez.Open(new Uri(@"Resources\rasez.wav", UriKind.Relative));
+                douchez.Open(new Uri(@"Resources\douchez.wav", UriKind.Relative));
+                brossezdent.Open(new Uri(@"Resources\brossezlesdents.wav", UriKind.Relative));
+                brosseadentSon.Open(new Uri(@"Resources\sonBrosseDent.wav", UriKind.Relative));
+                dentifriceSon.Open(new Uri(@"Resources\sonDentifrice.wav", UriKind.Relative));
+                verreSon.Open(new Uri(@"Resources\sonVerre.wav", UriKind.Relative));
+            }
+            catch (System.Exception e) { Trace.WriteLine("EXECPTION = "+e)}
             // Add handlers for window availability events
             AddWindowAvailabilityHandlers();
 
-            this._startServer();
+           /* this._startServer();
 
             string localIp = this._getLocalIPAddress();
 
             //Console.WriteLine("http://" + localIp + ":" + this._serverPort.ToString());
 
-            this._sm = new SocketManager("http://localhost:" + this._serverPort.ToString());
+            this._sm = new SocketManager("http://localhost:" + this._serverPort.ToString());*/
 
         }
 
@@ -115,17 +118,17 @@ namespace PaintSurface
         /// Occurs when the window is about to close. 
         /// </summary>
         /// <param name="e"></param>
-        protected override void OnClosed(EventArgs e)
+      /*  protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
             try
             {
                 this._serverProcess.CloseMainWindow();
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { Console.WriteLine(ex); }
             // Remove handlers for window availability events
             RemoveWindowAvailabilityHandlers();
-        }
+        }*/
 
         /// <summary>
         /// Adds handlers for window availability events.
@@ -203,7 +206,7 @@ namespace PaintSurface
             {
                 cuisine.Play();
             }
-            catch (System.NullReferenceException) { }
+            catch (System.Exception e) { Trace.WriteLine("execption = " +e); }
 
             await Task.Delay(2000);
             salonScale.BeginAnimation(ScaleTransform.ScaleXProperty, da);
@@ -212,7 +215,7 @@ namespace PaintSurface
             {
                 salon.Play();
             }
-            catch (System.NullReferenceException) { }
+            catch (System.Exception e) { Trace.WriteLine("execption = " + e); }
 
             await Task.Delay(2000);
             salledebainScale.BeginAnimation(ScaleTransform.ScaleXProperty, da);
@@ -220,7 +223,7 @@ namespace PaintSurface
             try{
                 salledebain.Play();
             }
-            catch (System.NullReferenceException) { }
+            catch (System.Exception e) { Trace.WriteLine("execption = " + e); }
         }
 
         private async void animeSalleDeBain()
@@ -236,28 +239,28 @@ namespace PaintSurface
             try {
                 brossezdent.Play();
             }
-            catch (System.NullReferenceException) { }
+            catch (System.Exception e) { Trace.WriteLine("execption = " + e); }
             await Task.Delay(2000);
             brosseacheveuxScale.BeginAnimation(ScaleTransform.ScaleXProperty, da);
             brosseacheveuxScale.BeginAnimation(ScaleTransform.ScaleYProperty, da);
             try{
                 coiffez.Play();
             }
-            catch (System.NullReferenceException) { }
+            catch (System.Exception e) { Trace.WriteLine("execption = " + e); }
             await Task.Delay(2000);
             rasoirScale.BeginAnimation(ScaleTransform.ScaleXProperty, da);
             rasoirScale.BeginAnimation(ScaleTransform.ScaleYProperty, da);
             try {
                 rasez.Play();
             }
-            catch (System.NullReferenceException) { }
+            catch (System.Exception e) { Trace.WriteLine("execption = " + e); }
             await Task.Delay(2000);
             doucheScale.BeginAnimation(ScaleTransform.ScaleXProperty, da);
             doucheScale.BeginAnimation(ScaleTransform.ScaleYProperty, da);
             try{
                 douchez.Play();
             }
-            catch (System.NullReferenceException) { }
+            catch (System.Exception e) { Trace.WriteLine("execption = " + e); }
         }
         private void ScatterViewDrop(object sender, SurfaceDragDropEventArgs e)
         {
