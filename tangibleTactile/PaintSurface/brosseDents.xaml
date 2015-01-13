@@ -8,7 +8,7 @@
             <Image Name="ActionPrendre" Height="200" Width="200"  Source="/Resources/prendre_brossedent.png" />
         </s:SurfaceButton>
         <s:SurfaceButton Click="onClick"  Margin="10,127,0,261" HorizontalAlignment="Left" Width="214"  >
-            <Image Name="ActionMouiller" Height="200" Width="200"  Source="/Resources/mouiller_brosse.png" RenderTransformOrigin="0.5,0.5" >
+            <Image Name="ActionMouiller"   Height="200" Width="200"  Source="/Resources/mouiller_brosse.png" RenderTransformOrigin="0.5,0.5" >
                 <Image.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -20,7 +20,7 @@
             </Image>
         </s:SurfaceButton>
         <s:SurfaceButton Click="onClick"  Margin="0,127,10,266" HorizontalAlignment="Right" Width="210" >
-            <Image Name="ActionBrosser" Height="200" Width="200"  Source="/Resources/brosser.jpg" />
+            <Image Name="ActionBrosser" Height="200" Width="200"  Source="/Resources/brosser.jpg" TouchMove="touchMove" />
         </s:SurfaceButton>
     </Grid>
 </s:TagVisualization>

@@ -49,5 +49,12 @@ namespace SurfacePaint
            // SurfaceWindow._currentColor = brush.Color;
             //SurfaceWindow.GetInstance().InkCanvas.DefaultDrawingAttributes.Color = brush.Color;
         }
+
+        private void touchMove(object sender, TouchEventArgs e)
+        {
+            Image img = sender as Image;
+            DataObject data = new DataObject(typeof(ImageSource), img.Source);
+            DragDrop.DoDragDrop(img, data, DragDropEffects.Move);
+        }
     }
 }
