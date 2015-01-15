@@ -345,16 +345,12 @@ namespace PaintSurface
             canvas.Children.Add(i3);
 
         }
-
+        private Image imgTmp;
         void i3_TouchMove(object sender, TouchEventArgs e)
         {
-            //Point touchPos = e.GetIntermediateTouchPoints
-            //Trace.WriteLine("PosX= " + mousePos.X + " PosY = " + mousePos.Y);
-            //Trace.WriteLine("ImagePosX= " +position.X + " ImagePosY = " + position.Y);
-            // Get the dragged ListViewItem
-            Image img = sender as Image;
-            DataObject data = new DataObject(typeof(ImageSource), img.Source);
-            DragDrop.DoDragDrop(img, data, DragDropEffects.Move);
+            Trace.WriteLine("touch down img");
+            imgTmp = i3;
+            
         }
        
         private void createImageBrosse(Point p)
@@ -622,30 +618,12 @@ namespace PaintSurface
             i6.SetValue(Canvas.TopProperty, p.Y + 100);
         }
 
-        private void manipStart(object sender, ManipulationStartingEventArgs e)
-        {
-            Trace.WriteLine("motherfuckerf1");
-            e.Mode = ManipulationModes.Rotate;
-            e.ManipulationContainer = this;
-            e.Handled = true;
-        }
-
-        private RotateTransform rt;
-        private void manipDelta(object sender, ManipulationDeltaEventArgs e)
-        {
-            Trace.WriteLine("motherfucker");
-            TagVisualization t = sender as TagVisualization;
-            Point p = t.Center;
-             rt= new RotateTransform();
-            i.RenderTransform =rt;
-            i.RenderTransformOrigin=p;
-            rt.Angle+=e.DeltaManipulation.Rotation;
-           //DoubleAnimation anim = new DoubleAnimation(rt)
-        }
-
+       
         private void touchTEST(object sender, TouchEventArgs e)
         {
-            Trace.WriteLine("motherfucker");
+            Trace.WriteLine("touh up frise");
+            Image img = sender as Image;
+            img.Source = new BitmapImage(new Uri("/Resources/mettre_dentifrice.png", UriKind.Relative));
         }
     }
 }

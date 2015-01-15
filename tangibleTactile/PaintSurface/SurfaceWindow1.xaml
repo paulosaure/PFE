@@ -235,7 +235,7 @@
                             </TextBlock.RenderTransform>
                         </TextBlock>
                         <Grid >
-                            <s:TagVisualizer  Height="650" Width="1920" Name="tagBrosseaDent"  IsManipulationEnabled="True"  ManipulationStarting="manipStart" RenderTransformOrigin="0.5,0.5" ManipulationDelta="manipDelta" VisualizationRemoved="OnvisualEnd" VisualizationMoved="OnvisualMoved" VisualizationAdded="OnVisualizationAdded">
+                            <s:TagVisualizer  Height="650" Width="1920" Name="tagBrosseaDent"  VisualizationRemoved="OnvisualEnd" VisualizationMoved="OnvisualMoved" VisualizationAdded="OnVisualizationAdded">
                                 <s:TagVisualizer.Definitions>
                                         <s:TagVisualizationDefinition Source="dentifrice.xaml" 
                                                   Value="0x01" 
@@ -282,19 +282,19 @@
             </Grid.ColumnDefinitions>
             <WrapPanel Name="friseHaut" Grid.Column="0"  Grid.Row="0" >
                 <Image Name="fleche" Margin="10,0" Height="200" Width="300"  Source="/Resources/friseG.png"  />
-                <Image Name="bloc1" Margin="10,0" Height="200" Width="300"  Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True" TouchUp="touchTEST" />
-                <Image Name="bloc2" Margin="10,0" Height="200" Width="300"  Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True"/>
-                <Image Name="bloc3" Margin="10,0" Height="200" Width="300"  Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True" />
-                <Image Name="bloc4" Margin="10,0"  Height="200" Width="300" Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True"/>
-                <Image Name="bloc5" Margin="10,0"  Height="200" Width="300" Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True"/>
+                <Image Name="bloc1" Margin="10,0" Height="200" Width="300"  Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True" TouchUp="touchTEST" TouchMove="" />
+                    <Image Name="bloc2" Margin="10,0" Height="200" Width="300"  Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True" TouchUp="touchTEST"/>
+                    <Image Name="bloc3" Margin="10,0" Height="200" Width="300"  Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True" TouchUp="touchTEST"/>
+                    <Image Name="bloc4" Margin="10,0"  Height="200" Width="300" Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True" TouchUp="touchTEST"/>
+                    <Image Name="bloc5" Margin="10,0"  Height="200" Width="300" Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True" TouchUp="touchTEST"/>
             </WrapPanel>
             <WrapPanel Name="friseBas" Grid.Column="0" Grid.Row="2" Margin="-10,646,10,-845" >
- 
-                <Image Name="bloc1B" Margin="10,0" Height="200" Width="300"  Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True" />
-                <Image Name="bloc2B" Margin="10,0" Height="200" Width="300"  Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True"/>
-                <Image Name="bloc3B" Margin="10,0" Height="200" Width="300"  Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True" />
-                <Image Name="bloc4B" Margin="10,0"  Height="200" Width="300" Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True"/>
-                <Image Name="bloc5B" Margin="10,0"  Height="200" Width="300" Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True"/>
+
+                    <Image Name="bloc1B" Margin="10,0" Height="200" Width="300"  Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True" TouchUp="touchTEST"/>
+                    <Image Name="bloc2B" Margin="10,0" Height="200" Width="300"  Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True" TouchUp="touchTEST"/>
+                    <Image Name="bloc3B" Margin="10,0" Height="200" Width="300"  Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True" TouchUp="touchTEST"/>
+                    <Image Name="bloc4B" Margin="10,0"  Height="200" Width="300" Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True" TouchUp="touchTEST"/>
+                    <Image Name="bloc5B" Margin="10,0"  Height="200" Width="300" Source="/Resources/elt.png" Drop="DropList_Drop"  AllowDrop="True" TouchUp="touchTEST"/>
                 <Image x:Name="flecheB" Margin="10,0" Height="200" Width="300"  Source="/Resources/friseD.png"  >
       
                 </Image>
