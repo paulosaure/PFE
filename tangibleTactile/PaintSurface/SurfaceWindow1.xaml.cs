@@ -341,8 +341,20 @@ namespace PaintSurface
             i3.Source = new BitmapImage(new Uri("/Resources/mettre_dentifrice.png", UriKind.Relative));
             i3.SetValue(Canvas.LeftProperty, p.X - 110);
             i3.SetValue(Canvas.TopProperty, p.Y - 230);
+            i3.TouchMove += i3_TouchMove;
             canvas.Children.Add(i3);
 
+        }
+
+        void i3_TouchMove(object sender, TouchEventArgs e)
+        {
+            //Point touchPos = e.GetIntermediateTouchPoints
+            //Trace.WriteLine("PosX= " + mousePos.X + " PosY = " + mousePos.Y);
+            //Trace.WriteLine("ImagePosX= " +position.X + " ImagePosY = " + position.Y);
+            // Get the dragged ListViewItem
+            Image img = sender as Image;
+            DataObject data = new DataObject(typeof(ImageSource), img.Source);
+            DragDrop.DoDragDrop(img, data, DragDropEffects.Move);
         }
        
         private void createImageBrosse(Point p)
@@ -408,6 +420,7 @@ namespace PaintSurface
 
         private void DropList_Drop(object sender, DragEventArgs e)
         {
+            Trace.WriteLine("test drop");
             Image img = sender as Image;
             if (img != null)
             {
@@ -602,7 +615,7 @@ namespace PaintSurface
         {
             i4.SetValue(Canvas.LeftProperty, p.X + 110);
             i4.SetValue(Canvas.TopProperty, p.Y - 130);
-            
+
             i5.SetValue(Canvas.LeftProperty, p.X - 280);
             i5.SetValue(Canvas.TopProperty, p.Y - 130);
             i6.SetValue(Canvas.LeftProperty, p.X - 110);
@@ -611,14 +624,28 @@ namespace PaintSurface
 
         private void manipStart(object sender, ManipulationStartingEventArgs e)
         {
+            Trace.WriteLine("motherfuckerf1");
             e.Mode = ManipulationModes.Rotate;
             e.ManipulationContainer = this;
             e.Handled = true;
         }
 
+        private RotateTransform rt;
         private void manipDelta(object sender, ManipulationDeltaEventArgs e)
         {
+            Trace.WriteLine("motherfucker");
+            TagVisualization t = sender as TagVisualization;
+            Point p = t.Center;
+             rt= new RotateTransform();
+            i.RenderTransform =rt;
+            i.RenderTransformOrigin=p;
+            rt.Angle+=e.DeltaManipulation.Rotation;
+           //DoubleAnimation anim = new DoubleAnimation(rt)
+        }
 
+        private void touchTEST(object sender, TouchEventArgs e)
+        {
+            Trace.WriteLine("motherfucker");
         }
     }
 }
