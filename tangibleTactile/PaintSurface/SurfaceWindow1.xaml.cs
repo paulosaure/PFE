@@ -350,6 +350,7 @@ namespace PaintSurface
         {
             Trace.WriteLine("touch down img");
             imgTmp = i3;
+            drop = true;
             
         }
        
@@ -389,9 +390,9 @@ namespace PaintSurface
             {
                 switch (e.TagVisualization.VisualizedTag.Value)
                 {
-                    case 0x01: createImageBrosse(t); borderAideBrosseDent.BorderBrush = Brushes.Green; borderAideBrosseDent2.BorderBrush = Brushes.Green; brosseadentBool = true; valideObjet(); break;
-                    case 0x20: createImageDentifrice(t); borderDentifrice.BorderBrush = Brushes.Green; borderDentifrice2.BorderBrush = Brushes.Green; borderDentifrice.Visibility = Visibility.Visible; dentifriceBool = true; valideObjet(); break;
-                    case 0xC5: createImageVerre(t); borderVerre.BorderBrush = Brushes.Green; borderVerre2.BorderBrush = Brushes.Green; borderVerre.Visibility = Visibility.Visible; verreBool = true; valideObjet(); break;
+                    case 0x01: createImageBrosse(t); borderAideBrosseDent.BorderBrush = Brushes.LightGreen; borderAideBrosseDent2.BorderBrush = Brushes.LightGreen; brosseadentBool = true; valideObjet(); break;
+                    case 0x20: createImageDentifrice(t); borderDentifrice.BorderBrush = Brushes.LightGreen; borderDentifrice2.BorderBrush = Brushes.LightGreen; borderDentifrice.Visibility = Visibility.Visible; dentifriceBool = true; valideObjet(); break;
+                    case 0xC5: createImageVerre(t); borderVerre.BorderBrush = Brushes.LightGreen; borderVerre2.BorderBrush = Brushes.LightGreen; borderVerre.Visibility = Visibility.Visible; verreBool = true; valideObjet(); break;
                     default: break;
                 }
             }
@@ -581,9 +582,9 @@ namespace PaintSurface
             {
                 switch (e.TagVisualization.VisualizedTag.Value)
                 {
-                    case 0x01: moveImageBrosse(t); borderAideBrosseDent.BorderBrush = Brushes.Green; borderAideBrosseDent2.BorderBrush = Brushes.Green; break;
-                    case 0x20: moveImageDentifrice(t); borderDentifrice.BorderBrush = Brushes.Green; borderDentifrice2.BorderBrush = Brushes.Green;  break;
-                    case 0xC5: moveImageVerre(t); borderVerre.BorderBrush = Brushes.Green; borderVerre2.BorderBrush = Brushes.Green;  break;
+                    case 0x01: moveImageBrosse(t); borderAideBrosseDent.BorderBrush = Brushes.LightGreen; borderAideBrosseDent2.BorderBrush = Brushes.LightGreen; break;
+                    case 0x20: moveImageDentifrice(t); borderDentifrice.BorderBrush = Brushes.LightGreen; borderDentifrice2.BorderBrush = Brushes.LightGreen; break;
+                    case 0xC5: moveImageVerre(t); borderVerre.BorderBrush = Brushes.LightGreen; borderVerre2.BorderBrush = Brushes.LightGreen; break;
                     default: break;
                 }
             }
@@ -618,12 +619,24 @@ namespace PaintSurface
             i6.SetValue(Canvas.TopProperty, p.Y + 100);
         }
 
-       
+        private bool drop = false;
         private void touchTEST(object sender, TouchEventArgs e)
         {
             Trace.WriteLine("touh up frise");
+            if (drop)
+            {
+                Image img = sender as Image;
+                img.Source = new BitmapImage(new Uri("/Resources/mettre_dentifrice.png", UriKind.Relative));
+                borderbloc1.BorderBrush = Brushes.LightGreen;
+                drop = false;
+            }
+        }
+
+        private void mouveDelete(object sender, TouchEventArgs e)
+        {
             Image img = sender as Image;
-            img.Source = new BitmapImage(new Uri("/Resources/mettre_dentifrice.png", UriKind.Relative));
+            img.Source = new BitmapImage(new Uri("/Resources/elt.png", UriKind.Relative));
+            
         }
     }
 }
