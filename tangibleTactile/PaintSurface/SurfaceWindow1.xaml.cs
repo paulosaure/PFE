@@ -322,6 +322,7 @@ namespace PaintSurface
             i.Source = new BitmapImage(new Uri("/Resources/rincer_bouche.png", UriKind.Relative));
             i.SetValue(Canvas.LeftProperty, p.X-110);
             i.SetValue(Canvas.TopProperty, p.Y-230);
+            i.TouchMove += i_TouchMove;
             canvas.Children.Add(i);
 
             i2 = new Image();
@@ -330,7 +331,20 @@ namespace PaintSurface
             i2.Source = new BitmapImage(new Uri("/Resources/cracher.png", UriKind.Relative));
             i2.SetValue(Canvas.LeftProperty, p.X-110);
             i2.SetValue(Canvas.TopProperty, p.Y+30);
+            i2.TouchMove += i2_TouchMove;
             canvas.Children.Add(i2);
+        }
+
+        private void i_TouchMove(object sender, TouchEventArgs e)
+        {
+            image = 1;
+            drop = true;
+        }
+
+        private void i2_TouchMove(object sender, TouchEventArgs e)
+        {
+            image = 2;
+            drop = true;
         }
          private Image i,i2,i3,i4,i5,i6;
         private void createImageDentifrice(Point p)
@@ -345,11 +359,11 @@ namespace PaintSurface
             canvas.Children.Add(i3);
 
         }
-        private Image imgTmp;
+        private int image=-1;
         void i3_TouchMove(object sender, TouchEventArgs e)
         {
             Trace.WriteLine("touch down img");
-            imgTmp = i3;
+            image = 3;
             drop = true;
             
         }
@@ -362,6 +376,7 @@ namespace PaintSurface
             i4.Source = new BitmapImage(new Uri("/Resources/mouiller_brosse.png", UriKind.Relative));
             i4.SetValue(Canvas.LeftProperty, p.X +110);
             i4.SetValue(Canvas.TopProperty, p.Y - 130);
+            i4.TouchMove += i4_TouchMove;
             canvas.Children.Add(i4);
 
             i5 = new Image();
@@ -370,6 +385,7 @@ namespace PaintSurface
             i5.Source = new BitmapImage(new Uri("/Resources/brosser.jpg", UriKind.Relative));
             i5.SetValue(Canvas.LeftProperty, p.X - 280);
             i5.SetValue(Canvas.TopProperty, p.Y - 130);
+            i5.TouchMove += i5_TouchMove;
             canvas.Children.Add(i5);
 
             i6 = new Image();
@@ -378,7 +394,26 @@ namespace PaintSurface
             i6.Source = new BitmapImage(new Uri("/Resources/prendre_brossedent.png", UriKind.Relative));
             i6.SetValue(Canvas.LeftProperty, p.X - 110);
             i6.SetValue(Canvas.TopProperty, p.Y + 100);
+            i6.TouchMove += i6_TouchMove;
             canvas.Children.Add(i6);
+        }
+
+        private void i6_TouchMove(object sender, TouchEventArgs e)
+        {
+            image = 6;
+            drop = true; ;
+        }
+
+        private void i5_TouchMove(object sender, TouchEventArgs e)
+        {
+            image = 5;
+            drop = true;
+        }
+
+        private void i4_TouchMove(object sender, TouchEventArgs e)
+        {
+            image = 4;
+            drop = true;
         }
         private void OnVisualizationAdded(object sender, TagVisualizerEventArgs e)
         {
@@ -626,8 +661,15 @@ namespace PaintSurface
             if (drop)
             {
                 Image img = sender as Image;
-                img.Source = new BitmapImage(new Uri("/Resources/mettre_dentifrice.png", UriKind.Relative));
-                borderbloc1.BorderBrush = Brushes.LightGreen;
+                switch (image) {
+                    case 1: img.Source = new BitmapImage(new Uri("/Resources/rincer_bouche.png", UriKind.Relative)); break;
+                    case 2: img.Source = new BitmapImage(new Uri("/Resources/cracher.png", UriKind.Relative)); break;
+                    case 3: img.Source = new BitmapImage(new Uri("/Resources/mettre_dentifrice.png", UriKind.Relative)); break;
+                    case 4: img.Source = new BitmapImage(new Uri("/Resources/mouiller_brosse.png", UriKind.Relative)); break;
+                    case 5: img.Source = new BitmapImage(new Uri("/Resources/brosser.jpg", UriKind.Relative)); break;
+                    case 6: img.Source = new BitmapImage(new Uri("/Resources/prendre_brossedent.png", UriKind.Relative)); break;
+                    default: break;
+            }
                 drop = false;
             }
         }
