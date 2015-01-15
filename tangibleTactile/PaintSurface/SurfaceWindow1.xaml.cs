@@ -314,15 +314,76 @@ namespace PaintSurface
                 ordonnancement.Visibility = Visibility.Visible;
             }
         }
+        private void createImageVerre(Point p)
+        {
+             i = new Image();
+            i.Width = 200;
+            i.Height = 200;
+            i.Source = new BitmapImage(new Uri("/Resources/rincer_bouche.png", UriKind.Relative));
+            i.SetValue(Canvas.LeftProperty, p.X-110);
+            i.SetValue(Canvas.TopProperty, p.Y-230);
+            canvas.Children.Add(i);
+
+            i2 = new Image();
+            i2.Width = 200;
+            i2.Height = 200;
+            i2.Source = new BitmapImage(new Uri("/Resources/cracher.png", UriKind.Relative));
+            i2.SetValue(Canvas.LeftProperty, p.X-110);
+            i2.SetValue(Canvas.TopProperty, p.Y+30);
+            canvas.Children.Add(i2);
+        }
+         private Image i,i2,i3,i4,i5,i6;
+        private void createImageDentifrice(Point p)
+        {
+            i3 = new Image();
+            i3.Width = 200;
+            i3.Height = 200;
+            i3.Source = new BitmapImage(new Uri("/Resources/mettre_dentifrice.png", UriKind.Relative));
+            i3.SetValue(Canvas.LeftProperty, p.X - 110);
+            i3.SetValue(Canvas.TopProperty, p.Y - 230);
+            canvas.Children.Add(i3);
+
+        }
+       
+        private void createImageBrosse(Point p)
+        {
+            i4 = new Image();
+            i4.Width = 200;
+            i4.Height = 200;
+            i4.Source = new BitmapImage(new Uri("/Resources/mouiller_brosse.png", UriKind.Relative));
+            i4.SetValue(Canvas.LeftProperty, p.X +110);
+            i4.SetValue(Canvas.TopProperty, p.Y - 130);
+            canvas.Children.Add(i4);
+
+            i5 = new Image();
+            i5.Width = 200;
+            i5.Height = 200;
+            i5.Source = new BitmapImage(new Uri("/Resources/brosser.jpg", UriKind.Relative));
+            i5.SetValue(Canvas.LeftProperty, p.X - 280);
+            i5.SetValue(Canvas.TopProperty, p.Y - 130);
+            canvas.Children.Add(i5);
+
+            i6 = new Image();
+            i6.Width = 200;
+            i6.Height = 200;
+            i6.Source = new BitmapImage(new Uri("/Resources/prendre_brossedent.png", UriKind.Relative));
+            i6.SetValue(Canvas.LeftProperty, p.X - 110);
+            i6.SetValue(Canvas.TopProperty, p.Y + 100);
+            canvas.Children.Add(i6);
+        }
         private void OnVisualizationAdded(object sender, TagVisualizerEventArgs e)
         {
+            Point p=e.TagVisualization.Center;
+
+            Point t = new Point(p.X, p.Y+210);
+
             try
             {
                 switch (e.TagVisualization.VisualizedTag.Value)
                 {
-                    case 0x01: borderAideBrosseDent.BorderBrush = Brushes.Green; borderAideBrosseDent2.BorderBrush = Brushes.Green; brosseadentBool = true; valideObjet(); break;
-                    case 0x20: borderDentifrice.BorderBrush = Brushes.Green; borderDentifrice2.BorderBrush = Brushes.Green; borderDentifrice.Visibility = Visibility.Visible; dentifriceBool = true; valideObjet(); break;
-                    case 0xC5: borderVerre.BorderBrush = Brushes.Green; borderVerre2.BorderBrush = Brushes.Green; borderVerre.Visibility = Visibility.Visible; verreBool = true; valideObjet(); break;
+                    case 0x01: createImageBrosse(t); borderAideBrosseDent.BorderBrush = Brushes.Green; borderAideBrosseDent2.BorderBrush = Brushes.Green; brosseadentBool = true; valideObjet(); break;
+                    case 0x20: createImageDentifrice(t); borderDentifrice.BorderBrush = Brushes.Green; borderDentifrice2.BorderBrush = Brushes.Green; borderDentifrice.Visibility = Visibility.Visible; dentifriceBool = true; valideObjet(); break;
+                    case 0xC5: createImageVerre(t); borderVerre.BorderBrush = Brushes.Green; borderVerre2.BorderBrush = Brushes.Green; borderVerre.Visibility = Visibility.Visible; verreBool = true; valideObjet(); break;
                     default: break;
                 }
             }
@@ -468,6 +529,96 @@ namespace PaintSurface
             maison.Visibility = Visibility.Hidden;
             atelier.Visibility = Visibility.Visible;
             animeSalleDeBain();
+        }
+
+        private void deleteImageBrosse(Point p){
+            canvas.Children.Remove(i4);
+            canvas.Children.Remove(i5);
+            canvas.Children.Remove(i6);
+
+        }
+        private void deleteImageDentifrice(Point p){
+            canvas.Children.Remove(i3);
+        }
+        private void deleteImageVerre(Point p){
+            canvas.Children.Remove(i);
+            canvas.Children.Remove(i2);
+        }
+        private void OnvisualEnd(object sender, TagVisualizerEventArgs e)
+        {
+            Point p = e.TagVisualization.Center;
+            Point t = new Point(p.X, p.Y + 210);
+            try
+            {
+                switch (e.TagVisualization.VisualizedTag.Value)
+                {
+                    case 0x01: deleteImageBrosse(t); borderAideBrosseDent.BorderBrush = Brushes.Transparent; borderAideBrosseDent2.BorderBrush = Brushes.Transparent; brosseadentBool = false; break;
+                    case 0x20: deleteImageDentifrice(t); borderDentifrice.BorderBrush = Brushes.Transparent; borderDentifrice2.BorderBrush = Brushes.Transparent; dentifriceBool = false; break;
+                    case 0xC5: deleteImageVerre(t); borderVerre.BorderBrush = Brushes.Transparent; borderVerre2.BorderBrush = Brushes.Transparent; verreBool = false; break;
+                    default: break;
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Trace.WriteLine("exeption " + ex);
+            }
+        }
+
+        private void OnvisualMoved(object sender, TagVisualizerEventArgs e)
+        {
+            Point p = e.TagVisualization.Center;
+            Point t = new Point(p.X, p.Y + 210);
+            try
+            {
+                switch (e.TagVisualization.VisualizedTag.Value)
+                {
+                    case 0x01: moveImageBrosse(t); borderAideBrosseDent.BorderBrush = Brushes.Green; borderAideBrosseDent2.BorderBrush = Brushes.Green; break;
+                    case 0x20: moveImageDentifrice(t); borderDentifrice.BorderBrush = Brushes.Green; borderDentifrice2.BorderBrush = Brushes.Green;  break;
+                    case 0xC5: moveImageVerre(t); borderVerre.BorderBrush = Brushes.Green; borderVerre2.BorderBrush = Brushes.Green;  break;
+                    default: break;
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Trace.WriteLine("exeption " + ex);
+            }
+        }
+
+        private void moveImageVerre(Point p)
+        {
+            i.SetValue(Canvas.LeftProperty, p.X - 110);
+            i.SetValue(Canvas.TopProperty, p.Y - 230);
+            i2.SetValue(Canvas.LeftProperty, p.X - 110);
+            i2.SetValue(Canvas.TopProperty, p.Y + 30);
+        }
+
+        private void moveImageDentifrice(Point p)
+        {
+            i3.SetValue(Canvas.LeftProperty, p.X - 110);
+            i3.SetValue(Canvas.TopProperty, p.Y - 230);
+        }
+
+        private void moveImageBrosse(Point p)
+        {
+            i4.SetValue(Canvas.LeftProperty, p.X + 110);
+            i4.SetValue(Canvas.TopProperty, p.Y - 130);
+            
+            i5.SetValue(Canvas.LeftProperty, p.X - 280);
+            i5.SetValue(Canvas.TopProperty, p.Y - 130);
+            i6.SetValue(Canvas.LeftProperty, p.X - 110);
+            i6.SetValue(Canvas.TopProperty, p.Y + 100);
+        }
+
+        private void manipStart(object sender, ManipulationStartingEventArgs e)
+        {
+            e.Mode = ManipulationModes.Rotate;
+            e.ManipulationContainer = this;
+            e.Handled = true;
+        }
+
+        private void manipDelta(object sender, ManipulationDeltaEventArgs e)
+        {
+
         }
     }
 }

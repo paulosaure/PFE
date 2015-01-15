@@ -93,7 +93,7 @@
         <Grid Name="maison" Visibility="Hidden" Grid.ColumnSpan="2">
             <TextBlock Margin="5,0,5,0" Foreground="LightPink"  FontSize="50" HorizontalAlignment="Center">Choisir une pièce</TextBlock>
             <StackPanel  Orientation="Horizontal" Height="auto" Width="auto"  >
-                <Button  Name="buttonCuisine" Width="350"  Height="350" Margin="150,100,150,100">
+                <Button  Name="buttonCuisine" Width="350" Click="salledabain_Click" Height="350" Margin="150,100,150,100">
                     <Button.RenderTransform>
                         <ScaleTransform x:Name= "cuisineScale" ScaleX="1" ScaleY="1" CenterX="200"  CenterY="150"/>
                     </Button.RenderTransform>
@@ -194,6 +194,7 @@
             </StackPanel>
         </Grid>
         <!--Vue objet à poser sur table-->
+        <Canvas Name="canvas">
         <Grid Name="objet" Visibility="Hidden" Grid.ColumnSpan="2">
             <StackPanel >
                 <WrapPanel Name="aideTop" Height="200"  Orientation="Horizontal" Margin="0,0,0,0">
@@ -234,19 +235,19 @@
                             </TextBlock.RenderTransform>
                         </TextBlock>
                         <Grid >
-                            <s:TagVisualizer  Height="650" Width="1920" Name="tagBrosseaDent"   VisualizationAdded="OnVisualizationAdded">
+                            <s:TagVisualizer  Height="650" Width="1920" Name="tagBrosseaDent" IsManipulationEnabled="True"  ManipulationStarting="manipStart" ManipulationDelta="manipDelta" VisualizationRemoved="OnvisualEnd" VisualizationMoved="OnvisualMoved" VisualizationAdded="OnVisualizationAdded">
                                 <s:TagVisualizer.Definitions>
-                                    <s:TagVisualizationDefinition Source="brosseDents.xaml"
+                                        <s:TagVisualizationDefinition Source="dentifrice.xaml"
                                                   Value="0x01" 
                                              OrientationOffsetFromTag="0" PhysicalCenterOffsetFromTag="0,0"
                                                   UsesTagOrientation="True"
                                               />
-                                    <s:TagVisualizationDefinition Value="0x20"  Source="dentifrice.xaml"
+                                        <s:TagVisualizationDefinition Value="0x20"  Source="dentifrice.xaml"
                                               OrientationOffsetFromTag="0"
                                               PhysicalCenterOffsetFromTag="0,0" 
                                               UsesTagOrientation="True"
                                               />
-                                    <s:TagVisualizationDefinition Value="0xC5" Source="verre.xaml"
+                                    <s:TagVisualizationDefinition Value="0xC5" Source="dentifrice.xaml"
                                               OrientationOffsetFromTag="0"
                                               PhysicalCenterOffsetFromTag="0,0" 
                                               UsesTagOrientation="True"
@@ -311,5 +312,6 @@
                 <Image Name="ActionRincer" Margin="10,0" Height="300" Width="300"  Source="/Resources/rincer_bouche.png" MouseMove="List_MouseMove"  />
             </WrapPanel>-->
         </Grid>
+        </Canvas>
     </Grid>
 </s:SurfaceWindow>

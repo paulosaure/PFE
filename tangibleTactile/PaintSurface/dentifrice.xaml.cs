@@ -24,8 +24,6 @@ namespace PaintSurface
         {
             //InitializeComponent();
         }
-        private void onClick(object sender, RoutedEventArgs e)
-        {
-        }
+
     }
 }
